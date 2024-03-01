@@ -41,7 +41,7 @@ main\app
     |    |     gateway
     |    |     tarifas
     |    |     usecase
-    |    |    data
+    |    |     data
     |    data
     |        \
     |         entities
