@@ -4,9 +4,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.function.Function;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import br.com.ptck.app.core.Produto;
 import br.com.ptck.app.core.Produto.CategoriaEnum;
@@ -19,7 +16,9 @@ import br.com.ptck.app.core.tarifas.ProdutoResidencial;
 import br.com.ptck.app.core.tarifas.ProdutoViagem;
 import br.com.ptck.app.core.tarifas.ProdutoVida;
 import br.com.ptck.app.presenter.rest.entities.ProdutoResponse;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 public class UpdateProdutoUseCase implements UseCase<UpdateProdutoUseCase.InputValues, UpdateProdutoUseCase.OutputValues> {
 
@@ -109,7 +108,10 @@ public class UpdateProdutoUseCase implements UseCase<UpdateProdutoUseCase.InputV
         return null;
     }
 
-    @Value
+    
+    @Getter
+    @Setter
+    @AllArgsConstructor
     public static class InputValues implements UseCase.InputValues {
         private final String id;
         private final String nome;
@@ -117,7 +119,9 @@ public class UpdateProdutoUseCase implements UseCase<UpdateProdutoUseCase.InputV
         private final Double precoBase;
     }
 
-    @Value
+    @Getter
+    @Setter
+    @AllArgsConstructor
     public static class OutputValues implements UseCase.OutputValues {
         private final ProdutoResponse produto;
     }

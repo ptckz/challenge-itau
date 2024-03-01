@@ -14,7 +14,9 @@ import br.com.ptck.app.core.tarifas.ProdutoResidencial;
 import br.com.ptck.app.core.tarifas.ProdutoViagem;
 import br.com.ptck.app.core.tarifas.ProdutoVida;
 import br.com.ptck.app.presenter.rest.entities.ProdutoResponse;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
 public class CreateProdutoUseCase implements UseCase<CreateProdutoUseCase.InputValues, CreateProdutoUseCase.OutputValues>{
 
@@ -76,14 +78,18 @@ public class CreateProdutoUseCase implements UseCase<CreateProdutoUseCase.InputV
         return null;
     }
 
-    @Value
+    @Getter
+    @Setter
+    @AllArgsConstructor
     public static class InputValues implements UseCase.InputValues {
         private final String nome;
         private final String categoria;
         private final Double precoBase;
     }
 
-    @Value
+    @Getter
+    @Setter
+    @AllArgsConstructor
     public static class OutputValues implements UseCase.OutputValues {
         private final ProdutoResponse produto;
     }

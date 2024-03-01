@@ -5,6 +5,7 @@ import java.util.UUID;
 
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.domain.Persistable;
+import org.springframework.lang.Nullable;
 
 import br.com.ptck.app.core.Produto;
 import br.com.ptck.app.core.Produto.CategoriaEnum;
@@ -13,15 +14,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
-import lombok.Value;
 
-@Value
 @Entity
 @Table(name = "ProdutoData")
-@ToString(of = {"nome", "categoria", "precoBase", "precoTarifado"})
-@EqualsAndHashCode(of = {"nome", "categoria", "precoBase", "precoTarifado"})
 public class ProdutoData implements Persistable<UUID> {
     
     @Id 
@@ -68,18 +63,6 @@ public class ProdutoData implements Persistable<UUID> {
         );
     }
 
-    public Produto toProduto(){
-        Produto produto = new Produto(
-            id,
-            nome,
-            categoria, 
-            precoBase,
-            precoTarifado 
-        );
-        produto.setId(this.getId()); 
-        return produto;
-    }
-
     public static ProdutoData from(Produto produto){
         ProdutoData produtoData = new ProdutoData(
             produto.getId(),
@@ -94,6 +77,12 @@ public class ProdutoData implements Persistable<UUID> {
     @Override
     public boolean isNew() {
         return id == null;
+    }
+
+    @Override
+    @Nullable
+    public UUID getId() {
+        return id;
     }
 
 }

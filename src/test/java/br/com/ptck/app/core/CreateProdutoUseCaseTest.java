@@ -14,6 +14,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import br.com.ptck.app.TestGenerator;
+import br.com.ptck.app.core.Produto.CategoriaEnum;
 import br.com.ptck.app.core.exception.NotFoundCategoriaException;
 import br.com.ptck.app.core.gateway.ProdutoRepository;
 import br.com.ptck.app.core.usecase.CreateProdutoUseCase;
@@ -66,6 +67,106 @@ public class CreateProdutoUseCaseTest {
         });
 
         assertTrue(notFoundProdutoException.getMessage().contains("Categoria não encontrada"));
+
+    }
+
+    @Test
+    void createProdutoImpostoTarifaAutomovelTest() {
+
+        expectedProduto.setCategoria(CategoriaEnum.AUTO);
+        CreateProdutoUseCase.InputValues useCaseInput = new CreateProdutoUseCase.InputValues(expectedProduto.getNome(),
+            expectedProduto.getCategoria().toString(), expectedProduto.getPrecoBase().doubleValue());
+
+        doReturn(expectedProduto)
+                .when(repository)
+                .persist(any(Produto.class));
+
+        ProdutoResponse response = useCase.execute(useCaseInput).getProduto();
+
+        // then
+        assertEquals(response.getNome(), expectedProduto.getNome());
+        assertEquals(response.getCategoria(), expectedProduto.getCategoria().toString());
+        assertEquals(response.getPreco_base(), expectedProduto.getPrecoBase());
+
+    }
+
+    @Test
+    void createProdutoImpostoTarifaPatrimonialTest() {
+
+        expectedProduto.setCategoria(CategoriaEnum.PATRIMONIAL);
+        CreateProdutoUseCase.InputValues useCaseInput = new CreateProdutoUseCase.InputValues(expectedProduto.getNome(),
+            expectedProduto.getCategoria().toString(), expectedProduto.getPrecoBase().doubleValue());
+
+        doReturn(expectedProduto)
+                .when(repository)
+                .persist(any(Produto.class));
+
+        ProdutoResponse response = useCase.execute(useCaseInput).getProduto();
+
+        // then
+        assertEquals(response.getNome(), expectedProduto.getNome());
+        assertEquals(response.getCategoria(), expectedProduto.getCategoria().toString());
+        assertEquals(response.getPreco_base(), expectedProduto.getPrecoBase());
+
+    }
+
+    @Test
+    void createProdutoImpostoTarifaResidencialTest() {
+
+        expectedProduto.setCategoria(CategoriaEnum.RESIDENCIAL);
+        CreateProdutoUseCase.InputValues useCaseInput = new CreateProdutoUseCase.InputValues(expectedProduto.getNome(),
+            expectedProduto.getCategoria().toString(), expectedProduto.getPrecoBase().doubleValue());
+
+        doReturn(expectedProduto)
+                .when(repository)
+                .persist(any(Produto.class));
+
+        ProdutoResponse response = useCase.execute(useCaseInput).getProduto();
+
+        // then
+        assertEquals(response.getNome(), expectedProduto.getNome());
+        assertEquals(response.getCategoria(), expectedProduto.getCategoria().toString());
+        assertEquals(response.getPreco_base(), expectedProduto.getPrecoBase());
+
+    }
+
+    @Test
+    void createProdutoImpostoSeguroViagemlTest() {
+
+        expectedProduto.setCategoria(CategoriaEnum.VIAGEM);
+        CreateProdutoUseCase.InputValues useCaseInput = new CreateProdutoUseCase.InputValues(expectedProduto.getNome(),
+            expectedProduto.getCategoria().toString(), expectedProduto.getPrecoBase().doubleValue());
+
+        doReturn(expectedProduto)
+                .when(repository)
+                .persist(any(Produto.class));
+
+        ProdutoResponse response = useCase.execute(useCaseInput).getProduto();
+
+        // then
+        assertEquals(response.getNome(), expectedProduto.getNome());
+        assertEquals(response.getCategoria(), expectedProduto.getCategoria().toString());
+        assertEquals(response.getPreco_base(), expectedProduto.getPrecoBase());
+
+    }
+
+    @Test
+    void createProdutoImpostoSeguroDeVidaTest() {
+
+        expectedProduto.setCategoria(CategoriaEnum.VIDA);
+        CreateProdutoUseCase.InputValues useCaseInput = new CreateProdutoUseCase.InputValues(expectedProduto.getNome(),
+            expectedProduto.getCategoria().toString(), expectedProduto.getPrecoBase().doubleValue());
+
+        doReturn(expectedProduto)
+                .when(repository)
+                .persist(any(Produto.class));
+
+        ProdutoResponse response = useCase.execute(useCaseInput).getProduto();
+
+        // then
+        assertEquals(response.getNome(), expectedProduto.getNome());
+        assertEquals(response.getCategoria(), expectedProduto.getCategoria().toString());
+        assertEquals(response.getPreco_base(), expectedProduto.getPrecoBase());
 
     }
 

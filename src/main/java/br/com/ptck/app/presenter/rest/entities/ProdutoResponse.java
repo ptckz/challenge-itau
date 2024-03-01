@@ -1,15 +1,11 @@
 package br.com.ptck.app.presenter.rest.entities;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import br.com.ptck.app.core.Produto;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 
-@Data
 @AllArgsConstructor
 public class ProdutoResponse {
 
@@ -28,10 +24,24 @@ public class ProdutoResponse {
             produto.getPrecoTarifado());
     }
 
-    public static List<ProdutoResponse> from(List<Produto> produtos) {
-        return produtos.parallelStream()
-                    .map(ProdutoResponse::from)
-                    .collect(Collectors.toList());
+    public UUID getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public BigDecimal getPreco_base() {
+        return preco_base;
+    }
+
+    public BigDecimal getPreco_tarifado() {
+        return preco_tarifado;
     }
 
 }

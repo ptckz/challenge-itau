@@ -5,7 +5,10 @@ import java.util.UUID;
 
 import br.com.ptck.app.core.Produto;
 import br.com.ptck.app.core.gateway.ProdutoRepository;
-import lombok.Value;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 public class GetProdutoByIdUseCase implements UseCase<GetProdutoByIdUseCase.InputValues, GetProdutoByIdUseCase.OutputValues>{
 
@@ -26,12 +29,18 @@ public class GetProdutoByIdUseCase implements UseCase<GetProdutoByIdUseCase.Inpu
         return repository.findById(id);
     }
 
-    @Value
+    @Getter
+    @Setter
+    @EqualsAndHashCode
+    @AllArgsConstructor
     public static class InputValues implements UseCase.InputValues {
         private final UUID id;
     }
 
-    @Value
+    @Getter
+    @Setter
+    @EqualsAndHashCode
+    @AllArgsConstructor
     public static class OutputValues implements UseCase.OutputValues {
         private final Optional<Produto> optionalProduto;
     }

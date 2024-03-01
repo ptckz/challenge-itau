@@ -7,19 +7,25 @@
 
 ## Como executar
 
-Para rodar o projeto
+Build 
 
 ```bash
-mvn spring-boot:run
+$ mvn clean install
 ```
-Para rodar os testes
+Relatório do JoCoCo encontra-se em /target/site/jacoco/index.html
+
+Rodar os testes
 
 ```bash
-mvn test
+$ mvn test
+```
+
+Executar
+
+```bash
+$ spring-boot:run
 ```
 
 ## Informações do Projeto
 
 O padrão utilizado foi o Mediator pois quando temos que lidar com um conjunto de objetos fortemente acoplados e difíceis de manter, podemos reduzir as dependências entre objetos e diminuir a complexidade geral e extraimos a lógica de comunicação para um dependente único, portanto seguimos o Principio de Resposabilidade Única. Além disso, podemos introduzir novos mediadores sem a necessidade de alterar partes do sistema. Portanto, seguimos com o Principio Aberto-Fechado.
-
-

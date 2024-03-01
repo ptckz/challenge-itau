@@ -1,9 +1,7 @@
 package br.com.ptck.app.presenter.rest.entities;
 
 import br.com.ptck.app.core.Produto;
-import lombok.Value;
 
-@Value
 public class ProdutoRequest {
     private final String nome;
     private final String categoria;
@@ -30,5 +28,22 @@ public class ProdutoRequest {
         this.preco_base = preco_base;
         this.preco_tarifado = 0.0;
     }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public Double getPreco_base() {
+        return preco_base;
+    }
+
+    public Double getPreco_tarifado() {
+        return preco_tarifado;
+    }
+    
 
 }
