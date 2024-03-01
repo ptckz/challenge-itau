@@ -49,7 +49,7 @@ main\app
     |   presenter
     |        \
     |        config
-    |         rest
+    |        rest
     |        usecase
     |   AppApplication.java
     resources           
