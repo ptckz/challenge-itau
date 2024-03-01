@@ -7,37 +7,39 @@ import java.util.Optional;
 import br.com.ptck.app.core.Produto;
 import br.com.ptck.app.core.Produto.CategoriaEnum;
 import br.com.ptck.app.core.exception.NotFoundCategoriaException;
-import br.com.ptck.app.core.exception.NotFoundProdutoException;
 import br.com.ptck.app.core.gateway.ProdutoRepository;
-import br.com.ptck.app.presenter.rest.entities.ProdutoRequest;
+import br.com.ptck.app.core.tarifas.ProdutoAutomovel;
+import br.com.ptck.app.core.tarifas.ProdutoPatrimonial;
+import br.com.ptck.app.core.tarifas.ProdutoResidencial;
+import br.com.ptck.app.core.tarifas.ProdutoViagem;
+import br.com.ptck.app.core.tarifas.ProdutoVida;
 import br.com.ptck.app.presenter.rest.entities.ProdutoResponse;
+import lombok.Value;
 
-public class CreateProdutoUseCase implements UseCase<ProdutoRequest, ProdutoResponse>{
+public class CreateProdutoUseCase implements UseCase<CreateProdutoUseCase.InputValues, CreateProdutoUseCase.OutputValues>{
 
     private ProdutoRepository repository;
-    private CalcularTarifaProdutoUseCase calcularTarifa;
 
-    public CreateProdutoUseCase(ProdutoRepository repository, 
-                                CalcularTarifaProdutoUseCase calcularTarifa) {
-        this.calcularTarifa = calcularTarifa;
+    public CreateProdutoUseCase(ProdutoRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public ProdutoResponse execute(ProdutoRequest request, String id) {
+    public OutputValues execute(InputValues request) {
         Produto produto = create(request);
 
-        return ProdutoResponse.from(repository.persist(produto));
+        return new OutputValues(ProdutoResponse.from(repository.persist(produto)));
     }
 
-    private Produto create(ProdutoRequest request) {
-        CategoriaEnum categoria = verificarCategoriaExistente(request.getCategoria());
+    private Produto create(InputValues input) {
+        CategoriaEnum categoria = verificarCategoriaExistente(input.getCategoria());
 
         Produto createProduto = Produto.newInstance(
-                request.getNome(),
+                input.getNome(),
                 categoria,
-                new BigDecimal(request.getPreco_base()).setScale(2, RoundingMode.HALF_DOWN));
-        createProduto.setPrecoTarifado(calcular(createProduto.getPrecoBase(), categoria));
+                toBigDecimal(input.getPrecoBase()));
+
+        createProduto.setPrecoTarifado(calcular(createProduto));
         return createProduto;
     }
 
@@ -50,8 +52,40 @@ public class CreateProdutoUseCase implements UseCase<ProdutoRequest, ProdutoResp
         return categorias.get();
     }
 
-    private BigDecimal calcular(BigDecimal precoBase, CategoriaEnum categoria) {
-        return calcularTarifa.calcular(precoBase, categoria);
+    private BigDecimal toBigDecimal(Double valor){
+        return new BigDecimal(valor).setScale(2, RoundingMode.HALF_DOWN);
+    }
+
+    private BigDecimal calcular(Produto produto) {
+        return calcularTarifa(produto.getPrecoBase(), produto.getCategoria());
+    }
+
+    private BigDecimal calcularTarifa(BigDecimal precoBase, CategoriaEnum categoria) {
+        switch (categoria) {
+            case VIDA:
+                return new ProdutoVida().calcularTarifa(precoBase);
+            case AUTO:
+                return new ProdutoAutomovel().calcularTarifa(precoBase);
+            case PATRIMONIAL:
+                return new ProdutoPatrimonial().calcularTarifa(precoBase);
+            case RESIDENCIAL:
+                return new ProdutoResidencial().calcularTarifa(precoBase);
+            case VIAGEM:
+                return new ProdutoViagem().calcularTarifa(precoBase);
+        }
+        return null;
+    }
+
+    @Value
+    public static class InputValues implements UseCase.InputValues {
+        private final String nome;
+        private final String categoria;
+        private final Double precoBase;
+    }
+
+    @Value
+    public static class OutputValues implements UseCase.OutputValues {
+        private final ProdutoResponse produto;
     }
 
 }

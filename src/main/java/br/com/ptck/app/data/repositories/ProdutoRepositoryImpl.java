@@ -6,7 +6,6 @@ import java.util.UUID;
 import org.springframework.stereotype.Repository;
 
 import br.com.ptck.app.core.Produto;
-import br.com.ptck.app.core.Produto.CategoriaEnum;
 import br.com.ptck.app.core.gateway.ProdutoRepository;
 import br.com.ptck.app.data.entities.ProdutoData;
 
@@ -22,14 +21,9 @@ public class ProdutoRepositoryImpl implements ProdutoRepository {
     public Produto persist(Produto produto) {
         ProdutoData produtoData = ProdutoData.from(produto);
 
-        return repository.save(produtoData).fromThis();
-    }
+        ProdutoData savedProdutoData = repository.save(produtoData);
 
-    @Override
-    public Produto update(Produto produto) {
-        ProdutoData produtoData = ProdutoData.from(produto);
-
-        return repository.save(produtoData).fromThis();
+        return savedProdutoData.fromThis();
     }
 
     @Override

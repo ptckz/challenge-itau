@@ -4,6 +4,6 @@ import java.math.BigDecimal;
 
 public interface IMediatorCalculoTarifa {
 
-    public BigDecimal calcularTarifa(BigDecimal precoBase, BigDecimal iof, BigDecimal pis, BigDecimal confins);
+    public BigDecimal calcular(BigDecimal precoBase, BigDecimal iof, BigDecimal pis, BigDecimal confins);
 
 }

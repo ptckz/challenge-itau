@@ -15,13 +15,6 @@ public class Produto {
     private BigDecimal precoBase;
     private BigDecimal precoTarifado;
 
-    public Produto(String nome, CategoriaEnum categoria, BigDecimal precoBase, BigDecimal precoTarifado) {
-        this.nome = nome;
-        this.categoria = categoria;
-        this.precoBase = precoBase;
-        this.precoTarifado = precoTarifado;
-    }
-
     public Produto(UUID id, String nome, CategoriaEnum categoria, BigDecimal precoBase, BigDecimal precoTarifado) {
         this.id = id;
         this.nome = nome;
@@ -41,6 +34,16 @@ public class Produto {
             nome, 
             categoria, 
             precoBase
+        );
+    }
+
+    public static Produto newInstance(UUID id, String nome, CategoriaEnum categoria, BigDecimal precoBase, BigDecimal precoTarifado){
+        return new Produto(
+            id,
+            nome, 
+            categoria, 
+            precoBase,
+            precoTarifado
         );
     }
 

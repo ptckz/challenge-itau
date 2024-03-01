@@ -6,7 +6,7 @@ import java.math.RoundingMode;
 public class MediatorCalculoTarifaImpl implements IMediatorCalculoTarifa {
 
     @Override
-    public BigDecimal calcularTarifa(BigDecimal precoBase, BigDecimal iof, BigDecimal pis, BigDecimal confins) {
+    public BigDecimal calcular(BigDecimal precoBase, BigDecimal iof, BigDecimal pis, BigDecimal confins) {
         return precoBase
                 .add(precoBase.multiply(iof))
                 .add(precoBase.multiply(pis))

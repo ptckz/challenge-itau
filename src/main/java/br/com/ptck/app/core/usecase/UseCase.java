@@ -1,7 +1,11 @@
 package br.com.ptck.app.core.usecase;
 
-public interface UseCase<I, O> {
+public interface UseCase<I extends UseCase.InputValues, O extends UseCase.OutputValues>{
 
-    O execute(I arg, String id);
+   public abstract O execute(I input);
+
+   public interface InputValues {}
+
+   public interface OutputValues {}
 
 }

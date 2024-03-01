@@ -12,39 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.ptck.app.core.usecase.CreateProdutoUseCase;
-import br.com.ptck.app.core.usecase.FindProdutoByIdUseCase;
+import br.com.ptck.app.core.usecase.GetProdutoByIdUseCase;
 import br.com.ptck.app.core.usecase.UpdateProdutoUseCase;
 import br.com.ptck.app.presenter.rest.entities.ProdutoRequest;
 import br.com.ptck.app.presenter.rest.entities.ProdutoResponse;
 import jakarta.validation.Valid;
-
 
 @RestController
 public class ProdutoController {
 
     @Autowired
     CreateProdutoUseCase createProdutoUseCase;
-    
+
     @Autowired
-    FindProdutoByIdUseCase findByCategoria;
-    
+    GetProdutoByIdUseCase findByCategoria;
+
     @Autowired
     UpdateProdutoUseCase updateProdutoUseCase;
 
     @PostMapping("/produto")
-    public ResponseEntity<ProdutoResponse> createProduto(@Valid @RequestBody ProdutoRequest request) throws URISyntaxException {
-
-        ProdutoResponse produto = createProdutoUseCase.execute(request, null);
-            
-        return ResponseEntity.created(new URI("/produto")).body(produto);
+    public ResponseEntity<ProdutoResponse> createProduto(@Valid @RequestBody ProdutoRequest request)
+            throws URISyntaxException {
+        return ResponseEntity.created(new URI("/produto"))
+                .body(createProdutoUseCase.execute(UseCaseInputMapper.map(request)).getProduto());
     }
 
     @PutMapping("/produto/{id}")
-    public ResponseEntity<ProdutoResponse> updateProduto(@Valid @RequestBody ProdutoRequest request, @Valid @PathVariable String id) throws URISyntaxException {
+    public ResponseEntity<ProdutoResponse> updateProduto(@Valid @RequestBody ProdutoRequest request,
+            @Valid @PathVariable String id) throws URISyntaxException {
 
-        ProdutoResponse produto = updateProdutoUseCase.execute(request, id);
-            
-        return ResponseEntity.created(new URI("/produto")).body(produto);
+        return ResponseEntity.created(new URI("/produto/" + id))
+                .body(updateProdutoUseCase.execute(UseCaseInputMapper.map(request, id)).getProduto());
+
     }
 
 }

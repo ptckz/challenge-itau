@@ -13,10 +13,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+import lombok.Value;
 
-
+@Value
 @Entity
 @Table(name = "ProdutoData")
+@ToString(of = {"nome", "categoria", "precoBase", "precoTarifado"})
+@EqualsAndHashCode(of = {"nome", "categoria", "precoBase", "precoTarifado"})
 public class ProdutoData implements Persistable<UUID> {
     
     @Id 
@@ -45,6 +50,14 @@ public class ProdutoData implements Persistable<UUID> {
         this.precoTarifado = precoTarifado;
     }
 
+    public ProdutoData(){
+        this.precoTarifado = null;
+        this.precoBase = null;
+        this.nome = "";
+        this.id = null;
+        this.categoria = null;
+    }
+
     public Produto fromThis(){
         return new Produto(
             this.id,
@@ -57,6 +70,7 @@ public class ProdutoData implements Persistable<UUID> {
 
     public Produto toProduto(){
         Produto produto = new Produto(
+            id,
             nome,
             categoria, 
             precoBase,
@@ -67,57 +81,14 @@ public class ProdutoData implements Persistable<UUID> {
     }
 
     public static ProdutoData from(Produto produto){
-        return new ProdutoData(
+        ProdutoData produtoData = new ProdutoData(
             produto.getId(),
             produto.getNome(),
             produto.getCategoria(),
             produto.getPrecoBase(),
             produto.getPrecoTarifado()
         );
-    }
-
-    public ProdutoData(){
-
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public void setId(UUID id) {
-        this.id = id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public CategoriaEnum getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(CategoriaEnum categoria) {
-        this.categoria = categoria;
-    }
-
-    public BigDecimal getPrecoBase() {
-        return precoBase;
-    }
-
-    public void setPrecoBase(BigDecimal precoBase) {
-        this.precoBase = precoBase;
-    }
-
-    public BigDecimal getPrecoTarifado() {
-        return precoTarifado;
-    }
-
-    public void setPrecoTarifado(BigDecimal precoTarifado) {
-        this.precoTarifado = precoTarifado;
+        return produtoData;
     }
 
     @Override
