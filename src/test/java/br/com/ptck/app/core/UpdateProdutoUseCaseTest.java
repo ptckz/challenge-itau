@@ -9,7 +9,6 @@ import static org.mockito.Mockito.doReturn;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -45,7 +44,7 @@ public class UpdateProdutoUseCaseTest {
     }
 
     @Test
-    void executeThrowExceptionWhenProdutoIsNotFound(){
+    void whenExecuteGetProdutoByIdUseCaseShouldThrowExceptionWhenProdutoIsNotFoundTest(){
         GetProdutoByIdUseCase.InputValues getProtudoInput =
         new GetProdutoByIdUseCase.InputValues(expectedProduto.getId());
 
@@ -71,7 +70,7 @@ public class UpdateProdutoUseCaseTest {
     }
 
     @Test
-    void executeCallUpdateMethodWhenProdutoIsFound() {
+    void updateProdutoUseCaseTest() {
  
         GetProdutoByIdUseCase.InputValues getProtudoInput =
             new GetProdutoByIdUseCase.InputValues(expectedProduto.getId());

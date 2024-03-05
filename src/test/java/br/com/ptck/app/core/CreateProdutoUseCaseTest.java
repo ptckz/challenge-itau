@@ -37,6 +37,21 @@ public class CreateProdutoUseCaseTest {
     }
 
     @Test
+    void whenCreateProdutoUseCaseShouldThrowExceptionWhenCategoriaIsNotFoundTest(){
+        CreateProdutoUseCase.InputValues useCaseInput = new CreateProdutoUseCase.InputValues(
+            expectedProduto.getNome(),
+            "QWERTY",
+            expectedProduto.getPrecoBase().doubleValue());
+
+        NotFoundCategoriaException notFoundProdutoException = assertThrows(NotFoundCategoriaException.class, () -> {
+            useCase.execute(useCaseInput).getProduto();
+        });
+
+        assertTrue(notFoundProdutoException.getMessage().contains("Categoria não encontrada"));
+
+    }
+
+    @Test
     void createProdutoUseCaseTest() {
 
         CreateProdutoUseCase.InputValues useCaseInput = new CreateProdutoUseCase.InputValues(expectedProduto.getNome(),
@@ -52,21 +67,6 @@ public class CreateProdutoUseCaseTest {
         assertEquals(response.getNome(), expectedProduto.getNome());
         assertEquals(response.getCategoria(), expectedProduto.getCategoria().toString());
         assertEquals(response.getPreco_base(), expectedProduto.getPrecoBase());
-
-    }
-
-    @Test
-    void executeThrowExceptionWhenCategoriaIsNotFound(){
-        CreateProdutoUseCase.InputValues useCaseInput = new CreateProdutoUseCase.InputValues(
-            expectedProduto.getNome(),
-            "QWERTY",
-            expectedProduto.getPrecoBase().doubleValue());
-
-        NotFoundCategoriaException notFoundProdutoException = assertThrows(NotFoundCategoriaException.class, () -> {
-            useCase.execute(useCaseInput).getProduto();
-        });
-
-        assertTrue(notFoundProdutoException.getMessage().contains("Categoria não encontrada"));
 
     }
 
