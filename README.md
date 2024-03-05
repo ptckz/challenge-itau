@@ -1,10 +1,12 @@
 # Desafio Itau Seg
 
-- Java JDK 17
+- JDK 17
 - Spring Boot 3
-- JoCoCo
+- Lombok 
+- JaCoCo
 - JUnit 5
-- H2
+- Project Java Faker
+- H2 
 
 ## Como executar
 
@@ -13,7 +15,7 @@ Build
 ```bash
 $ mvn clean install
 ```
-Relatório do JoCoCo encontra-se em /target/site/jacoco/index.html
+Report do JaCoCo encontra-se em /target/site/jacoco/index.html
 
 Executar os testes
 
