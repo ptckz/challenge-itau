@@ -38,7 +38,7 @@ Utilizando o padrão Clean Architecture de Martin Fowler consegui manter o códi
 Para atender às solicitações conforme proposto no desafio, optei por implementar dois endpoints específicos. No primeiro, é possível criar um novo produto e persisti-lo na base de dados(H2) utilizando o método POST. No segundo endpoint, utilizei o método PUT, passando o ID do produto previamente cadastrado como parâmetro para atualizar o produto. Dessa forma, busquei garantir a conformidade com as exigências de entrada e saída estipuladas.
 
 - Criação de produtos, exemplo de request:
-```bash
+```json
 $ POST http://localhost:9000/api/v1/produto
 
 {
@@ -48,7 +48,7 @@ $ POST http://localhost:9000/api/v1/produto
 }
 ```
 Response:
-```bash
+```json
 {
     "id": "d117795a-867f-43ef-9eac-e1c884d9e27e",
     "nome": "Seguro de Vida Individual",
@@ -59,7 +59,7 @@ Response:
 ```
 
 - Atualização de produtos, exemplo de request:
-```bash
+```json
 $ PUT http://localhost:9000/api/v1/produto/{id}
 
 {
@@ -69,7 +69,7 @@ $ PUT http://localhost:9000/api/v1/produto/{id}
 }
 ```
 Response:
-```bash
+```json
 {
     "id": "d117795a-867f-43ef-9eac-e1c884d9e27e",
     "nome": "Seguro de VIDA Individual",
